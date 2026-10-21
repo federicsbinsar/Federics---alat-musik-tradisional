@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Game Tebak & Eja Alat Musik Tradisional Indonesia</title>
+<style>
+:root{--ink:#1d2747;--purple:#6957d9;--pink:#ff6f91;--yellow:#ffd166;--mint:#64d8b3;--paper:#fffdf8;--blue:#5bb8e8}
+*{box-sizing:border-box}body{margin:0;font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif;color:var(--ink);background:radial-gradient(circle at 10% 10%,#fff1c7 0,transparent 28%),radial-gradient(circle at 90% 20%,#d9f7f0 0,transparent 25%),#f4f2ff;min-height:100vh}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:14px;padding:12px 18px;font-weight:800;transition:transform .12s,filter .12s}button:hover{filter:brightness(1.04);transform:translateY(-1px)}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #ffb703;outline-offset:2px}
+.wrap{max-width:1050px;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.brand{font-weight:900;letter-spacing:.04em}.brand span{color:var(--purple)}.pill{background:#fff;border:2px solid #e8e4ff;padding:8px 12px;border-radius:999px;font-size:.88rem;font-weight:800}
+.hero{text-align:center;padding:25px 12px 20px}.kicker{display:inline-block;background:var(--yellow);padding:7px 13px;border-radius:999px;font-size:.8rem;font-weight:900;letter-spacing:.08em}.hero h1{font-size:clamp(2rem,5vw,3.8rem);line-height:1.02;margin:15px 0 10px}.hero h1 em{font-style:normal;color:var(--purple)}.hero p{max-width:650px;margin:0 auto;color:#59617c;line-height:1.55}
+.panel{background:rgba(255,255,255,.9);border:2px solid #ebe8ff;border-radius:24px;padding:22px;box-shadow:0 12px 35px #41357a12}.setup{max-width:760px;margin:10px auto}.section-title{font-size:1.1rem;font-weight:900;margin:0 0 12px}.modes{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mode{background:#f4f1ff;border:2px solid #e4ddff;text-align:left;padding:18px;color:var(--ink)}.mode.active{background:#e5fff5;border-color:var(--mint)}.mode b{display:block;font-size:1.1rem;margin-bottom:5px}.mode small{font-weight:600;color:#65708d}.formrow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}.field label{display:block;font-size:.85rem;font-weight:800;margin-bottom:6px}.field input,.field select{width:100%;border:2px solid #e7e6f2;background:#fff;border-radius:12px;padding:11px;color:var(--ink)}.primary{background:var(--purple);color:white}.secondary{background:#ece9ff;color:#4737ad}.orange{background:var(--pink);color:white}.green{background:#c9f7e7;color:#145743}.full{width:100%;margin-top:18px;font-size:1.05rem;padding:15px}
+.game{display:none;max-width:850px;margin:10px auto}.hud{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.stat{background:#fff;border:2px solid #ece8ff;border-radius:16px;padding:12px;text-align:center}.stat small{display:block;color:#7a819a;font-weight:800;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em}.stat strong{display:block;font-size:1.35rem;margin-top:3px}.progress{height:9px;background:#e7e5f4;border-radius:99px;overflow:hidden;margin:0 0 16px}.progress div{height:100%;background:linear-gradient(90deg,var(--mint),var(--blue));width:0%;transition:width .3s}
+.question{display:grid;grid-template-columns: .9fr 1.1fr;gap:20px;align-items:stretch}.art{min-height:270px;border-radius:20px;background:linear-gradient(145deg,#fff0b9,#ffe2eb);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;position:relative;overflow:hidden}.art:before,.art:after{content:"";position:absolute;border-radius:50%;background:#fff8; width:110px;height:110px;top:-45px;left:-35px}.art:after{top:auto;left:auto;bottom:-55px;right:-20px;width:150px;height:150px}.instrument-emoji{font-size:clamp(5rem,12vw,8rem);line-height:1.15;filter:drop-shadow(0 8px 3px #8b56752b);z-index:1}.art .artlabel{z-index:1;background:#ffffffc9;border-radius:999px;padding:6px 12px;font-size:.8rem;font-weight:900;margin-top:12px}.qbody{padding:8px 2px}.roundtag{color:var(--purple);font-size:.8rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.qbody h2{font-size:clamp(1.4rem,3vw,2rem);margin:9px 0}.clue{color:#59617c;line-height:1.55;margin-bottom:15px}.hintbox{background:#fff7dc;border-left:4px solid var(--yellow);padding:11px 13px;border-radius:10px;margin-bottom:15px;font-size:.92rem}.answerline{display:flex;gap:8px}.answerline input{flex:1;min-width:0;border:2px solid #dcd9f0;border-radius:13px;padding:13px;font-size:1.1rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}.answerline button{white-space:nowrap}.feedback{min-height:27px;margin:11px 0 4px;font-weight:900}.feedback.good{color:#11815e}.feedback.bad{color:#cf4165}.under-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}.under-actions button{flex:1}.letterhint{display:flex;gap:5px;flex-wrap:wrap;margin:12px 0}.letterhint span{width:29px;height:34px;border-radius:7px;background:#efedff;display:grid;place-items:center;font-weight:900;color:#5447b5}.letterhint span.blank{color:#a8a3c5;background:#f6f5fc}.teamline{display:none;justify-content:space-between;gap:10px;margin-bottom:12px;font-weight:900}.teamline span{background:#e9fff6;padding:8px 12px;border-radius:12px}.bottomnote{text-align:center;color:#858ba2;font-size:.8rem;margin:20px 0}.overlay{display:none;position:fixed;inset:0;background:#1c204b99;z-index:5;align-items:center;justify-content:center;padding:18px}.modal{max-width:500px;width:100%;background:white;border-radius:24px;padding:26px;text-align:center;box-shadow:0 20px 70px #17173d55}.modal h2{font-size:2rem;margin:8px 0}.modal p{color:#5c6380;line-height:1.5}.modal-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}.settings{display:none;max-width:760px;margin:10px auto}.settings textarea{width:100%;min-height:160px;border:2px solid #e7e6f2;border-radius:12px;padding:12px;font-family:ui-monospace,monospace;font-size:.88rem}.smallmuted{font-size:.82rem;color:#707791;line-height:1.5}
+@media(max-width:680px){.wrap{padding:14px}.question{grid-template-columns:1fr}.art{min-height:200px}.instrument-emoji{font-size:5.5rem}.hud{grid-template-columns:repeat(2,1fr)}.formrow{grid-template-columns:1fr}.modes{grid-template-columns:1fr}.panel{padding:16px}.answerline{flex-direction:column}.answerline button{width:100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><div class="brand">🎵 NUSANTARA <span>PLAYLAB</span></div><div class="pill">SENI MUSIK • SMP</div></header>
+  <section class="hero">
+    <span class="kicker">BELAJAR SAMBIL BERMAIN</span>
+    <h1>Tebak & Eja <em>Alat Musik</em></h1>
+    <p>Kenali alat musik tradisional Indonesia, baca petunjuknya, lalu ketik nama alat musik dengan ejaan yang tepat. Siap menjelajahi kekayaan musik Nusantara?</p>
+  </section>
+  <section id="setup" class="panel setup">
+    <h2 class="section-title">Pilih mode permainan</h2>
+    <div class="modes">
+      <button class="mode active" data-mode="solo"><b>🧑 Solo Mode</b><small>Main sendiri dan kumpulkan skor tertinggi.</small></button>
+      <button class="mode" data-mode="team"><b>👥 Team VS Mode</b><small>Dua tim bergantian menjawab soal.</small></button>
+    </div>
+    <div class="formrow">
+      <div class="field"><label for="player1">Nama pemain / Tim 1</label><input id="player1" value="Pemain 1" maxlength="24"></div>
+      <div class="field" id="team2field" style="display:none"><label for="player2">Nama Tim 2</label><input id="player2" value="Pemain 2" maxlength="24"></div>
+      <div class="field"><label for="timeSetting">Waktu per soal</label><select id="timeSetting"><option value="20">20 detik (cepat)</option><option value="30" selected>30 detik (normal)</option><option value="45">45 detik (santai)</option><option value="60">60 detik (belajar)</option></select></div>
+      <div class="field"><label for="roundSetting">Jumlah soal</label><select id="roundSetting"><option>5</option><option selected>10</option><option>15</option><option>20</option></select></div>
+    </div>
+    <button id="startBtn" class="primary full">MULAI PERMAINAN ▶</button>
+    <button id="settingsBtn" class="secondary full" style="margin-top:9px">⚙️ PENGATURAN GURU / DAFTAR SOAL</button>
+  </section>
+  <section id="settings" class="panel settings">
+    <h2 class="section-title">⚙️ Pengaturan guru</h2>
+    <p class="smallmuted">Daftar soal dapat diedit. Format setiap baris: <b>Nama alat musik | Asal daerah | Petunjuk | Emoji</b>. Simpan perubahan untuk digunakan pada permainan berikutnya.</p>
+    <textarea id="questionEditor" spellcheck="false"></textarea>
+    <div class="under-actions"><button id="saveQuestions" class="green">SIMPAN DAFTAR SOAL</button><button id="cancelSettings" class="secondary">KEMBALI</button><button id="resetQuestions" class="orange">RESET BAWAAN</button></div>
+  </section>
+  <section id="game" class="game">
+    <div class="teamline" id="teamline"><span id="team1score">🟢 Tim 1: 0</span><span id="team2score">🟣 Tim 2: 0</span></div>
+    <div class="hud">
+      <div class="stat"><small>Skor</small><strong id="score">0</strong></div>
+      <div class="stat"><small>Soal</small><strong id="round">1 / 10</strong></div>
+      <div class="stat"><small>Waktu</small><strong id="timer">30s</strong></div>
+      <div class="stat"><small>Nyawa</small><strong id="lives">❤️❤️❤️</strong></div>
+    </div>
+    <div class="progress"><div id="progressBar"></div></div>
+    <div class="panel">
+      <div class="question">
+        <div class="art"><div class="instrument-emoji" id="instrumentEmoji">🎋</div><div class="artlabel" id="artLabel">PETUNJUK VISUAL</div></div>
+        <div class="qbody">
+          <div class="roundtag" id="roundTag">SOAL 1 • TEBAK NAMA</div>
+          <h2>Alat musik apakah ini?</h2>
+          <p class="clue" id="clue">Baca petunjuk berikut dan ketik nama alat musiknya.</p>
+          <div class="hintbox" id="hintbox">💡 Petunjuk: alat musik tradisional Indonesia.</div>
+          <div class="letterhint" id="letterhint"></div>
+          <form id="answerForm" class="answerline"><input id="answer" autocomplete="off" autocapitalize="characters" placeholder="Ketik nama alat musik..." aria-label="Jawaban"><button class="primary" type="submit">JAWAB ↵</button></form>
+          <div class="feedback" id="feedback" aria-live="polite"></div>
+          <div class="under-actions"><button id="hintBtn" class="secondary">💡 BUKA HURUF</button><button id="skipBtn" class="orange">LEWATI ➜</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="under-actions"><button id="exitBtn" class="secondary">⟵ KELUAR</button><button id="soundBtn" class="secondary">🔊 SUARA: ON</button></div>
+  </section>
+  <div class="bottomnote">Dibuat untuk pembelajaran Seni Musik • Jelajahi, kenali, dan banggakan budaya Indonesia 🇮🇩</div>
+</div>
+<div class="overlay" id="overlay" role="dialog" aria-modal="true"><div class="modal"><div id="modalIcon" style="font-size:3.5rem">🏆</div><h2 id="modalTitle">Permainan selesai!</h2><p id="modalText"></p><div class="modal-actions"><button id="playAgain" class="primary">MAIN LAGI ↻</button><button id="backHome" class="secondary">MENU UTAMA</button></div></div></div>
+<script>
+const defaultQuestions = [
+["Angklung","Jawa Barat","Terbuat dari bambu dan dimainkan dengan cara digoyangkan hingga tabungnya bergetar.","🎋"],
+["Sasando","Pulau Rote, Nusa Tenggara Timur","Alat musik petik dengan tabung bambu dan resonator dari daun lontar.","🪕"],
+["Kolintang","Minahasa, Sulawesi Utara","Alat musik pukul dari bilah-bilah kayu yang disusun menurut nada.","🪵"],
+["Tifa","Papua dan Maluku","Alat musik pukul berbentuk tabung, biasanya dimainkan dengan tangan.","🥁"],
+["Saluang","Sumatera Barat","Alat musik tiup tradisional Minangkabau yang terbuat dari bambu.","🎶"],
+["Gamelan","Jawa dan Bali","Ansambel musik tradisional yang dapat terdiri dari gong, kenong, saron, dan instrumen lain.","🔔"],
+["Kecapi","Jawa Barat","Alat musik petik berdawai yang sering mengiringi tembang Sunda.","🎼"],
+["Talempong","Sumatera Barat","Alat musik berbentuk gong kecil yang dimainkan dengan cara dipukul.","🔔"],
+["Rebab","Berbagai daerah, termasuk Jawa","Alat musik berdawai yang dimainkan dengan cara digesek.","🎻"],
+["Kendang","Jawa dan Sunda","Alat musik perkusi berbentuk tabung yang dimainkan dengan kedua tangan.","🥁"],
+["Bonang","Jawa","Rangkaian gong kecil berpencu yang diletakkan mendatar dan dipukul.","🛎️"],
+["Serunai","Sumatera Barat dan wilayah lain","Alat musik tiup tradisional dengan suara nyaring, sering dimainkan dalam acara adat.","📯"],
+["Aramba","Nias, Sumatera Utara","Alat musik berupa gong logam yang dipukul dalam upacara adat.","🔔"],
+["Pupuik Tanduak","Sumatera Barat","Alat musik tiup yang dibuat dari tanduk kerbau.","📯"],
+["Genggong","Bali dan beberapa daerah lain","Alat musik kecil yang dimainkan di dekat mulut dan menghasilkan bunyi melalui getaran.","🎵"],
+["Panting","Kalimantan Selatan","Alat musik petik berdawai yang menjadi ciri musik tradisional Banjar.","🪕"],
+["Ceng-ceng","Bali","Alat musik perkusi berupa kepingan logam yang dibenturkan.","🔩"],
+["Sape","Kalimantan, terutama Kalimantan Timur","Alat musik petik khas masyarakat Dayak dengan bentuk menyerupai perahu.","🪕"],
+["Gordang Sambilan","Mandailing, Sumatera Utara","Ansambel sembilan gendang besar yang dimainkan dalam tradisi masyarakat Mandailing.","🥁"],
+["Bende","Lampung dan daerah lain","Alat musik pukul berbentuk gong kecil yang digunakan dalam kesenian tradisional.","🔔"],
+["Gong","Berbagai daerah di Indonesia","Alat musik logam berukuran besar yang menghasilkan bunyi bergema saat dipukul.","🟡"],
+["Burdah","Sumatera Selatan","Alat musik seperti rebana besar yang dimainkan dengan cara dipukul.","🪘"],
+["Triton","Papua","Alat musik tiup yang memanfaatkan cangkang kerang.","🐚"],
+["Bambu Hitada","Halmahera, Maluku Utara","Alat musik tradisional dari bambu yang dimainkan dengan menghentakkan atau memukulkannya.","🎋"]
+];
+let questions = [...defaultQuestions];
+let mode="solo", currentSet=[], index=0, score=0, lives=3, seconds=30, timerId=null, hintUsed=false, locked=false, soundOn=true, teamScores=[0,0], teamTurn=0, players=["Pemain 1","Pemain 2"], totalRounds=10;
+const $=id=>document.getElementById(id);
+function normalize(s){return s.toLocaleLowerCase('id').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'')}
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function beep(freq=660,dur=.12){if(!soundOn)return;try{let c=new (window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=freq;g.gain.value=.045;o.start();g.gain.exponentialRampToValueAtTime(.001,c.currentTime+dur);o.stop(c.currentTime+dur)}catch(e){}}
+document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;document.querySelectorAll('.mode').forEach(x=>x.classList.toggle('active',x===b));$('team2field').style.display=mode==='team'?'block':'none'});
+$('settingsBtn').onclick=()=>{ $('setup').style.display='none';$('settings').style.display='block';$('questionEditor').value=questions.map(q=>q.join(' | ')).join('\n')};
+$('cancelSettings').onclick=()=>{$('settings').style.display='none';$('setup').style.display='block'};
+$('saveQuestions').onclick=()=>{let parsed=$('questionEditor').value.split('\n').map(l=>l.split('|').map(x=>x.trim())).filter(a=>a.length>=3&&a[0]&&a[1]&&a[2]).map(a=>[a[0],a[1],a[2],a[3]||'🎵']);if(parsed.length<3){alert('Masukkan minimal 3 soal dengan format yang benar.');return}questions=parsed;$('settings').style.display='none';$('setup').style.display='block';alert('Daftar soal tersimpan untuk sesi ini!')};
+$('resetQuestions').onclick=()=>{$('questionEditor').value=defaultQuestions.map(q=>q.join(' | ')).join('\n')};
+function startGame(){players=[$('player1').value.trim()||'Pemain 1',$('player2').value.trim()||'Pemain 2'];seconds=+$('timeSetting').value;totalRounds=Math.min(+$('roundSetting').value,questions.length);currentSet=shuffle(questions).slice(0,totalRounds);index=0;score=0;lives=3;teamScores=[0,0];teamTurn=0;$('setup').style.display='none';$('settings').style.display='none';$('game').style.display='block';$('teamline').style.display=mode==='team'?'flex':'none';$('exitBtn').textContent='⟵ KELUAR';showQuestion()}
+$('startBtn').onclick=startGame;
+function showQuestion(){clearInterval(timerId);if(index>=currentSet.length|| (mode==='solo'&&lives<=0)){finishGame();return}locked=false;hintUsed=false;let q=currentSet[index];$('instrumentEmoji').textContent=q[3];$('artLabel').textContent='ASAL: '+q[1].toUpperCase();$('clue').textContent=q[2];$('hintbox').textContent='💡 Petunjuk: alat musik tradisional dari '+q[1]+'.';$('roundTag').textContent=`SOAL ${index+1} • ${mode==='team'?players[teamTurn]+' MENJAWAB':'TEBAK NAMA'}`;$('round').textContent=(index+1)+' / '+totalRounds;$('score').textContent=mode==='team'?teamScores[0]+teamScores[1]:score;$('lives').textContent='❤️'.repeat(Math.max(0,lives))+'🤍'.repeat(Math.max(0,3-lives));$('timer').textContent=seconds+'s';$('answer').value='';$('answer').disabled=false;$('feedback').textContent='';$('feedback').className='feedback';$('answer').focus();renderBlanks(q[0]);updateProgress();let remain=seconds;timerId=setInterval(()=>{remain--;$('timer').textContent=remain+'s';if(remain<=5)beep(300,.06);if(remain<=0){clearInterval(timerId);timeUp()}},1000)}
+function renderBlanks(word){$('letterhint').innerHTML='';let letters=word.replace(/[^a-z]/gi,'');for(let i=0;i<letters.length;i++){let s=document.createElement('span');s.className='blank';s.textContent='_';$('letterhint').appendChild(s)}}
+function updateProgress(){$('progressBar').style.width=(index/totalRounds*100)+'%';if(mode==='team'){$('team1score').textContent='🟢 '+players[0]+': '+teamScores[0];$('team2score').textContent='🟣 '+players[1]+': '+teamScores[1]}}
+function revealLetters(word){let spans=[...$('letterhint').children],chars=word.replace(/[^a-z]/gi,'').toUpperCase();spans.forEach((s,i)=>{if(i===0||i===chars.length-1||Math.random()>.6){s.textContent=chars[i];s.className=''}})}
+$('hintBtn').onclick=()=>{if(locked)return;let q=currentSet[index];if(!hintUsed){hintUsed=true;revealLetters(q[0]);$('hintbox').textContent='💡 Huruf bantuan terbuka! Jawaban benar tetap mendapat poin, tetapi dikurangi 2.';beep(520)}else{$('hintbox').textContent='💡 Asal daerah: '+q[1]+'.';}};
+$('answerForm').onsubmit=e=>{e.preventDefault();if(locked)return;let q=currentSet[index],val=normalize($('answer').value);if(!val){$('feedback').textContent='Ketik jawaban terlebih dahulu ya!';$('feedback').className='feedback bad';return}if(val===normalize(q[0])){locked=true;clearInterval(timerId);let pts=Math.max(5,10+Math.floor(+$('timer').textContent.replace('s','')/5)-(hintUsed?2:0));if(mode==='team')teamScores[teamTurn]+=pts;else score+=pts;$('score').textContent=mode==='team'?teamScores[0]+teamScores[1]:score;$('feedback').textContent='BENAR! +' +pts+' poin • '+q[0]+' berasal dari '+q[1]+'.';$('feedback').className='feedback good';$('answer').disabled=true;beep(880,.2);updateProgress();setTimeout(nextQuestion,1400)}else{$('feedback').textContent='Belum tepat. Coba periksa ejaannya lagi!';$('feedback').className='feedback bad';$('answer').select();beep(220,.15)}};
+function timeUp(){if(locked)return;locked=true;let q=currentSet[index];if(mode==='solo')lives--; $('feedback').textContent='Waktu habis! Jawabannya: '+q[0]+' ('+q[1]+').';$('feedback').className='feedback bad';$('answer').disabled=true;$('lives').textContent='❤️'.repeat(Math.max(0,lives))+'🤍'.repeat(Math.max(0,3-lives));beep(180,.3);setTimeout(nextQuestion,1900)}
+function nextQuestion(){clearInterval(timerId);index++;if(mode==='team')teamTurn=1-teamTurn;showQuestion()}
+$('skipBtn').onclick=()=>{if(locked)return;locked=true;clearInterval(timerId);let q=currentSet[index];if(mode==='solo')lives--; $('feedback').textContent='Dilewati. Jawabannya: '+q[0]+' — '+q[1]+'.';$('feedback').className='feedback bad';$('answer').disabled=true;$('lives').textContent='❤️'.repeat(Math.max(0,lives))+'🤍'.repeat(Math.max(0,3-lives));setTimeout(nextQuestion,1300)};
+function finishGame(){clearInterval(timerId);$('progressBar').style.width='100%';$('overlay').style.display='flex';if(mode==='team'){let winner=teamScores[0]===teamScores[1]?'Seri!':(teamScores[0]>teamScores[1]?players[0]+' menang!':players[1]+' menang!');$('modalIcon').textContent='🏆';$('modalTitle').textContent=winner;$('modalText').textContent=`Skor akhir — ${players[0]}: ${teamScores[0]} poin, ${players[1]}: ${teamScores[1]} poin. Hebat, kalian sudah mengenal alat musik tradisional Indonesia!`}else{$('modalIcon').textContent=lives>0?'🎉':'💪';$('modalTitle').textContent=lives>0?'Permainan selesai!':'Nyawa habis!';$('modalText').textContent=`Skor akhir kamu ${score} poin dari ${index} soal. ${score>=70?'Luar biasa! Kamu mengenal banyak alat musik Nusantara.':'Terus berlatih dan kenali lagi alat musik dari berbagai daerah Indonesia.'}`}}
+$('playAgain').onclick=()=>{$('overlay').style.display='none';startGame()};$('backHome').onclick=()=>{$('overlay').style.display='none';$('game').style.display='none';$('setup').style.display='block';clearInterval(timerId)};
+$('exitBtn').onclick=()=>{if(confirm('Keluar dari permainan sekarang?')){$('game').style.display='none';$('setup').style.display='block';clearInterval(timerId)}};
+$('soundBtn').onclick=()=>{soundOn=!soundOn;$('soundBtn').textContent=soundOn?'🔊 SUARA: ON':'🔇 SUARA: OFF';if(soundOn)beep()};
+</script>
+</body>
+</html>
